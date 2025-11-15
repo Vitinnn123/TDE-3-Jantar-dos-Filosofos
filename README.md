@@ -10,6 +10,7 @@
 
 ## Objetivo
 
+O objetivo deste projeto é compreender e demonstrar o comportamento de problemas clássicos de concorrência como o Jantar dos Filósofos, condições de corrida e deadlocks por meio de implementações em Java que exploram o uso de semáforos, sincronização entre threads e protocolos de prevenção de impasse, permitindo visualizar passo a passo como essas situações surgem e como podem ser corrigidas.
 
 ---
 
