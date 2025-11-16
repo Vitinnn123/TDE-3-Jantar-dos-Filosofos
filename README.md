@@ -17,11 +17,12 @@ O objetivo deste projeto é compreender e demonstrar o comportamento de problema
 ## Estrutura do Projeto
 
 ```
-/Projeto Jantar dos Filósofos
+/Projeto Jantar dos Filósofos, Concorrência e Deadlock
 └── README.md (Documentação do projeto)
   /Código completo 
-  └── 
-
+  └── PseudocódigoJantarDosFilósofos.txt
+  └── DeadlockRepro.java
+  └── DeadlockOK.java
 ```
 
 ---
@@ -146,18 +147,45 @@ No fim, é um trade-off clássico: você perde velocidade, mas ganha segurança,
 
 ### 1) Introdução:
 
-Aqui o foco é entender como o deadlock aparece e como evitar.
+Nesta atividade, o objetivo é entender na prática como um deadlock acontece e depois corrigir o problema.
+Um deadlock ocorre quando duas ou mais threads ficam esperando recursos que nunca serão liberados, criando uma espera circular onde ninguém progride. Esse é um dos travamentos mais perigosos em programação concorrente, porque o programa não quebra e não envia erro ele simplesmente congela.
+
+Para demonstrar isso, foi usado o código base do professor, que cria intencionalmente um deadlock entre duas threads usando dois locks diferentes.
 
 
 ### 2) Como o Deadlock Acontece:
 
+No código original *(DeadlockRepro.java)*, cada thread tenta pegar dois locks na **ordem oposta**:
+- **Thread T1** pega primeiro *LOCK_A*, depois tenta *LOCK_B*.
+- **Thread T2** pega primeiro *LOCK_B*, depois tenta *LOCK_A*.
+
+Como cada thread segura um lock e espera pelo outro, nenhuma delas consegue continuar.
+Isso forma exatamente a situação de deadlock:
+- **Exclusão mútua:** um lock só pode ser segurado por uma thread.
+- **Manter e esperar:** cada thread segura um lock e quer o outro.
+- **Não preempção:** a thread não solta o lock automaticamente.
+- **Espera circular:** T1 espera T2 e T2 espera T1.
+
+Com essas quatro condições presentes, o programa trava para sempre.
+Os logs imprimem as primeiras mensagens, mas param exatamente quando ambas começam a esperar mostrando claramente o deadlock acontecendo na prática.
+
 ### 3) Solução:
+
+Para resolver o deadlock, **todas as threads devem pedir os locks na mesma ordem.**
+
+No código corrigido *(DeadlockOK.java)*:
+- Tanto a **Thread T1** quanto a **Thread T2** tentam pegar primeiro *LOCK_A* e só depois *LOCK_B*.
+
+Com esse ajuste, a espera circular desaparece.
+Nenhuma thread consegue ficar com *LOCK_B* antes de ter adquirido *LOCK_A*.
+Mesmo que uma thread demore, a outra vai esperar, mas **não existe mais a troca de recursos cruzada que causa o deadlock.**
+A ordem fixa quebra o ciclo e garante progresso.
 
 ### 4) Conclusão: 
 
-Com a ordem fixa de aquisição, o deadlock desaparece completamente.
-As threads podem rodar em paralelo sem travar o sistema, já que não existe mais um ciclo de dependências.
-É uma solução simples, eficiente e muito usada em sistemas reais que lidam com múltiplos locks.
+O deadlock acontece quando duas threads tentam adquirir locks em ordens diferentes, criando uma cadeia circular de dependência.
+Ao padronizar a ordem de aquisição (sempre primeiro *LOCK_A*, depois *LOCK_B)*, a espera circular deixa de existir, e o deadlock é eliminado completamente.
+É uma solução simples, eficiente e amplamente utilizada em sistemas reais: quando há múltiplos recursos, impor uma ordem global garante segurança e evita travamentos.
 
 ---
 
