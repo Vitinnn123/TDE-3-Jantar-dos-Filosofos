@@ -148,3 +148,10 @@ As threads podem rodar em paralelo sem travar o sistema, já que não existe mai
 ---
 
 ## Link Video!
+
+---
+
+## Licença
+
+Este projeto foi desenvolvido **exclusivamente para fins educacionais** na disciplina de *Performance em Sistemas Ciberfísicos* da Pontifícia Universidade Católica do Paraná.
+Não possui finalidade comercial e não concede direitos de uso além do contexto acadêmico.
