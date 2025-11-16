@@ -1,4 +1,4 @@
-# TDE 3 - Jantar dos Filósofos, concorrrencia e Deadlock
+# TDE 3 - Jantar dos Filósofos, Concorrência e Deadlock
 
 - **Disciplina:** Performance em Sistemas Ciberfísicos
 - **Instituição:** Pontifícia Universidade Católica do Paraná    
