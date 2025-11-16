@@ -1,0 +1,32 @@
+
+Para cada filósofo i:
+    estado[i] = "pensando"
+
+Função Filosofo(i):
+    enquanto verdadeiro:
+        PENSAR(i)
+        estado[i] = "com fome"
+
+        // identifica garfos
+        esquerdo = i
+        direito = (i + 1) mod 5
+
+        // ordem global (hierarquia)
+        primeiro = min(esquerdo, direito)
+        segundo  = max(esquerdo, direito)
+
+        // tenta adquirir os garfos nessa ordem
+        lock(garfo[primeiro])
+        lock(garfo[segundo])
+
+        estado[i] = "comendo"
+        COMER(i)
+
+        // libera os garfos
+        unlock(garfo[segundo])
+        unlock(garfo[primeiro])
+
+        estado[i] = "pensando"
+
+        // cada garfo usa um lock FIFO fazendo com que as requisições sejam atendidas em ordem de chegada
+        // a aquisição ordenada impede espera circular, evitando deadlock
