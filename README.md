@@ -19,11 +19,24 @@ O objetivo deste projeto é compreender e demonstrar o comportamento de problema
 ```
 /Projeto Jantar dos Filósofos
 └── README.md (Documentação do projeto)
-  /Código completo (Comentado)
+  /Código completo 
   └── 
-  /Código completo (Não Comentado)
-  └── 
+
 ```
+
+---
+
+## Relatório
+
+### Parte 1 - Jantar dos Filósofos:
+
+
+
+
+
+
+
+
 
 ---
 
