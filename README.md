@@ -72,7 +72,6 @@ Cada um pensa da seguinte maneira:
 ### 5) Pseudocódigo:
 
 ```
-
 Para cada filósofo i:
     estado[i] = "pensando"
 
@@ -104,7 +103,6 @@ Função Filosofo(i):
 
         // cada garfo usa um lock FIFO fazendo com que as requisições sejam atendidas em ordem de chegada
         // a aquisição ordenada impede espera circular, evitando deadlock
-
 ```
 
 ### 6) Conclusão:
