@@ -115,17 +115,31 @@ A solução funciona porque impõe uma ordem fixa para pegar os garfos, evitando
 
 ### 1) Introdução:
 
-Nesta parte, a ideia é mostrar o que acontece quando vários threads tentam atualizar a mesma variável ao mesmo tempo sem nenhum tipo de controle.
-Quando esses acessos acontecem simultaneamente, os valores se sobrepõem e operações são “perdidas”, criando o famoso race condition. Isso faz com que o resultado final fique incorreto mesmo que tudo pareça certo no código.
+Nesta atividade analisamos o que acontece quando várias threads tentam atualizar a mesma variável ao mesmo tempo.
+Quando todas fazem **count++** sem nenhum tipo de proteção, o valor final simplesmente não bate com o esperado. Isso ocorre porque a operação de incremento não é instantânea, e duas threads podem ler e alterar o mesmo valor simultaneamente.
+Esse comportamento se chama condição de corrida, e é um dos problemas mais comuns em programação concorrente.
 
+### 2) Solução:
 
+Primeiro analisamos a versão sem sincronização.
+Aqui várias threads incrementam o contador ao mesmo tempo, e por isso alguns incrementos se perdem no meio da disputa pelos recursos. O valor final termina errado, mesmo que o código pareça certo. É o efeito direto da race condition.
 
+Em seguida, aplicamos um semáforo binário com fairness (Semaphore(1, true)).
+Ele funciona como uma espécie de fila: apenas uma thread por vez pode entrar na região crítica onde ocorre o count++.
 
+Com isso:
+- Cada incremento acontece de forma isolada.
+- Nenhuma thread interfere na outra.
+- O valor final passa a ser exatamente o esperado: T × M.
+- E a fairness garante que todas as threads entram na ordem correta da fila.
 
+A solução funciona perfeitamente, mas tem um ponto negativo natural: como agora todo mundo precisa esperar sua vez, o processo fica mais lento. O throughput diminui porque os incrementos deixam de ser paralelos e passam a ser serializados.
 
+### 3) Conclusão:
 
-
-### 1) Conclusão:
+O semáforo binário elimina completamente a condição de corrida, garantindo um resultado correto independentemente da quantidade de threads.
+Por outro lado, o desempenho cai um pouco, já que todas precisam esperar sua vez para acessar a região crítica.
+No fim, é um trade-off clássico: você perde velocidade, mas ganha segurança, consistência e ordem entre as threads.
 
 
 ## Parte 3 - Deadlock:
