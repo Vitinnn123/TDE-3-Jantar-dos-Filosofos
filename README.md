@@ -189,6 +189,8 @@ Ao padronizar a ordem de aquisição (sempre primeiro *LOCK_A*, depois *LOCK_B)*
 
 ## Link Video!
 
+https://youtu.be/NWkAKriKOJo
+
 ---
 
 ## Licença
